@@ -1,20 +1,35 @@
-# Sistema de Envio de Mensagens via WhatsApp
+
+<p align="center" width="100%">
+    <img width="50%" src="https://blog.b2bstack.com.br/wp-content/uploads/2023/02/whatsapp-business-api-neu-01.webp"> 
+</p>
+
+<h3 align="center">
+  # 🚀 Sistema de Envio de Mensagens via WhatsApp 📲
+</h3>
+
+<p align="center">
+
+  <img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-%2304D361">
+  <img alt="Language: Java" src="https://img.shields.io/badge/language-java-green">
+  <img alt="Version: 1.0" src="https://img.shields.io/badge/version-1.0-yellowgreen">
+
+</p>
 
 Este projeto é uma aplicação Spring Boot que permite o envio automatizado de mensagens via WhatsApp utilizando a API do Twilio. Ele inclui funcionalidades para upload de arquivos CSV com informações de clientes, personalização de mensagens, envio de mensagens e atualização do status das mensagens.
 
-## Sumário
+## 📋 Sumário
 
-- [Tecnologias Utilizadas](#tecnologias-utilizadas)
-- [Arquitetura](#arquitetura)
-- [Configuração do Ambiente](#configuração-do-ambiente)
-- [Configuração do Twilio](#configuração-do-twilio)
-- [Uso](#uso)
-- [API Endpoints](#api-endpoints)
-- [Estrutura do Banco de Dados](#estrutura-do-banco-de-dados)
-- [Considerações de Segurança](#considerações-de-segurança)
-- [Contribuição](#contribuição)
+- [📚 Tecnologias Utilizadas](#-tecnologias-utilizadas)
+- [🏗️ Arquitetura](#-arquitetura)
+- [🔧 Configuração do Ambiente](#-configuração-do-ambiente)
+- [🔑 Configuração do Twilio](#-configuração-do-twilio)
+- [📝 Uso](#-uso)
+- [🔌 API Endpoints](#-api-endpoints)
+- [💾 Estrutura do Banco de Dados](#-estrutura-do-banco-de-dados)
+- [🔒 Considerações de Segurança](#-considerações-de-segurança)
+- [🤝 Contribuição](#-contribuição)
 
-## Tecnologias Utilizadas
+## 📚 Tecnologias Utilizadas
 
 - Java com Spring Boot
 - MySQL (utilizando Docker)
@@ -23,7 +38,7 @@ Este projeto é uma aplicação Spring Boot que permite o envio automatizado de 
 - Spring Security para autenticação e controle de acesso
 - OpenCSV para processamento de arquivos CSV
 
-## Arquitetura
+## 🏗️ Arquitetura
 
 A aplicação está estruturada em camadas, seguindo a arquitetura de microsserviços:
 
@@ -32,7 +47,9 @@ A aplicação está estruturada em camadas, seguindo a arquitetura de microsserv
 3. **Repository**: Interage com o banco de dados.
 4. **Model**: Representa as entidades do banco de dados.
 
-## Configuração do Ambiente
+![Arquitetura](https://miro.medium.com/v2/resize:fit:800/format:webp/1*Kn16sMS4mtn4a-PyGnlI_A.png)
+
+## 🔧 Configuração do Ambiente
 
 ### Pré-requisitos
 
@@ -84,7 +101,7 @@ A aplicação está estruturada em camadas, seguindo a arquitetura de microsserv
     twilio.whatsapp-number=whatsapp:+14155238886
     ```
 
-## Configuração do Twilio
+## 🔑 Configuração do Twilio
 
 1. **Criar Conta no Twilio**
 
@@ -95,7 +112,7 @@ A aplicação está estruturada em camadas, seguindo a arquitetura de microsserv
 
     - No console do Twilio, configure um número Twilio para enviar mensagens via WhatsApp.
 
-## Uso
+## 📝 Uso
 
 1. **Subir a Aplicação**
 
@@ -110,7 +127,7 @@ A aplicação está estruturada em camadas, seguindo a arquitetura de microsserv
     - **Upload de Arquivo CSV**: Para fazer upload de um arquivo CSV com informações de clientes.
     - **Envio de Mensagens**: Enviar mensagens via WhatsApp para os clientes listados no CSV.
 
-## API Endpoints
+## 🔌 API Endpoints
 
 ### Upload de Arquivo CSV
 
