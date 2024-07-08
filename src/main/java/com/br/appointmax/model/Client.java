@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.security.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -21,11 +23,11 @@ public class Client {
 
     private String name;
 
-    @Column(unique = true)
     private String phone;
 
     private String email;
-    private String message;
-    private String status;
-    private Timestamp timestamp;
+
+    @OneToMany(mappedBy = "client")
+    private List<Message> messages = new ArrayList<>();
+
 }
