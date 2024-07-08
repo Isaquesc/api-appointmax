@@ -1,32 +1,31 @@
 package com.br.appointmax.controller;
 
-
-import com.br.appointmax.service.WhatsAppService;
+import com.br.appointmax.model.dto.SendMessageRequestDTO;
+import com.br.appointmax.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/whatsapp")
 public class WhatsAppController {
 
-    private final WhatsAppService whatsAppService;
-
     @Autowired
-    public WhatsAppController(WhatsAppService whatsAppService) {
-        this.whatsAppService = whatsAppService;
-    }
+    private MessageService messageService;
 
     @PostMapping("/send")
-    public String sendMessage(@RequestParam String to, @RequestParam String message) {
-        try {
-            whatsAppService.sendWhatsAppMessage(to, message);
-            return "Message sent successfully to " + to;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "Failed to send message to " + to;
+    public ResponseEntity<?> sendMessage(@RequestBody SendMessageRequestDTO request) {
+
+        var clientIds = request.clientIds();
+        var messageContent = request.messageContent();
+
+        for (Long client : clientIds) {
+            messageService.sendMessage(client, messageContent);
         }
+
+        return ResponseEntity.noContent().build();
     }
 }
