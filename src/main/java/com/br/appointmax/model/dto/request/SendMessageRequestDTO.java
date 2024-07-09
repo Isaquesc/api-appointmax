@@ -1,4 +1,4 @@
-package com.br.appointmax.model.dto;
+package com.br.appointmax.model.dto.request;
 
 import java.util.List;
 
