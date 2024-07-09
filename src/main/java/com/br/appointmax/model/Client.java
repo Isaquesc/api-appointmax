@@ -1,5 +1,7 @@
 package com.br.appointmax.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -27,6 +29,7 @@ public class Client {
 
     private String email;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "client")
     private List<Message> messages = new ArrayList<>();
 
