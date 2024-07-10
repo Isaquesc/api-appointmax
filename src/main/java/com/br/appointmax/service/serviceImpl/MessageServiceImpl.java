@@ -6,8 +6,15 @@ import com.br.appointmax.repository.MessageRepository;
 import com.br.appointmax.service.ClientService;
 import com.br.appointmax.service.MessagePersonalizationService;
 import com.br.appointmax.service.MessageService;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -34,11 +41,11 @@ public class MessageServiceImpl implements MessageService {
         Client client = clientService.getClient(clientId);
         var personalizedMessage = personalizeMessage.personalizeMessage(messageContent, client);
 
-        return getMessage(client, personalizedMessage);
+        return constructorMessage(client, personalizedMessage);
         //        kafkaTemplate.send("messages", messageContent);
     }
 
-    private Message getMessage(Client client, String personalizedMessage) {
+    private Message constructorMessage(Client client, String personalizedMessage) {
         Message message = new Message();
         message.setClient(client);
         message.setContent(personalizedMessage);
@@ -51,12 +58,16 @@ public class MessageServiceImpl implements MessageService {
         return messageRepository.findByClientId(clientId);
     }
 
-    public List<Message> getMessagesByStatus(String status) {
-        return messageRepository.findByStatus(status);
-    }
-
     public List<Message> getMessagesByClientIdAndStatus(Long clientId, String status) {
         return messageRepository.findByClientIdAndStatus(clientId, status);
+    }
+
+    public List<Message> getAllMessages() {
+        return messageRepository.findAll();
+    }
+
+    public List<Message> getMessagesByStatus(String status) {
+        return messageRepository.findByStatus(status);
     }
 
     public List<Message> getMessagesByDateRange(LocalDateTime start, LocalDateTime end) {
@@ -66,4 +77,19 @@ public class MessageServiceImpl implements MessageService {
     public List<Message> getMessageByStatusAndDateRange(String status, LocalDateTime start, LocalDateTime end) {
         return messageRepository.findByStatusAndDataMessageBetween(status, start, end);
     }
+
+    public List<Message> getFilteredMessages(String status, LocalDateTime start, LocalDateTime end){
+        if (StringUtils.hasLength(status) && start != null && end != null) {
+            return getMessageByStatusAndDateRange(status, start, end);
+        } else if (StringUtils.hasLength(status)) {
+            return getMessagesByStatus(status);
+        } else if (start != null && end != null) {
+            return getMessagesByDateRange(start, end);
+        } else if (!StringUtils.hasLength(status) && start == null && end == null) {
+            return getAllMessages();
+        } else {
+            throw new IllegalArgumentException("Status and start and end are both null");
+        }
+    }
+    
 }

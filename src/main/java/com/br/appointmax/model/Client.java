@@ -20,13 +20,10 @@ public class Client {
     @Embedded
     private Address address;
 
-//    @Column(unique = true, nullable = false)
     private String cpf;
-
     private String name;
-
+    private String sobrenome;
     private String phone;
-
     private String email;
 
     @JsonIgnore
