@@ -41,6 +41,7 @@ public class MessageRepositoryImpl {
         }
 
         criteriaQuery.where(predicates.toArray(new Predicate[0])); // Define os predicados na consulta
+
         return entityManager.createQuery(criteriaQuery).getResultList();
     }
 }

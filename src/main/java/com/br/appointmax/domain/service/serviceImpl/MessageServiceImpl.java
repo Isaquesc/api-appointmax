@@ -6,6 +6,7 @@ import com.br.appointmax.domain.repository.MessageRepository;
 import com.br.appointmax.domain.service.ClientService;
 import com.br.appointmax.domain.service.MessagePersonalizationService;
 import com.br.appointmax.domain.service.MessageService;
+import com.br.appointmax.infrastucture.spec.MessageFilterStatusDateStartEnd;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -48,20 +49,9 @@ public class MessageServiceImpl implements MessageService {
         return message;
     }
 
-    public List<Message> getMessagesByClientId(Long clientId) {
-        return messageRepository.findByClientId(clientId);
-    }
 
-    public List<Message> getMessagesByClientIdAndStatus(Long clientId, String status) {
-        return messageRepository.findByClientIdAndStatus(clientId, status);
-    }
-
-    public List<Message> getAllMessages() {
-        return messageRepository.findAll();
-    }
-
-    public List<Message> getFilterMessages(String status, LocalDateTime start, LocalDateTime end){
-        return messageRepository.getFilterMessages(status, start, end);
+    public List<Message> getFilterMessages(Long idClient, String status, LocalDateTime start, LocalDateTime end){
+        return messageRepository.findAll(new MessageFilterStatusDateStartEnd(idClient, status, start, end));
     }
 
 }

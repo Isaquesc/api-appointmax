@@ -9,12 +9,6 @@ public interface MessageService {
 
     Message createMessage(Long clientId, String messageContent);
 
-    List<Message> getMessagesByClientId(Long clientId);
-
-    List<Message> getMessagesByClientIdAndStatus(Long clientId, String status);
-
-    List<Message> getAllMessages();
-
-    List<Message> getFilterMessages(String status, LocalDateTime start, LocalDateTime end);
+    List<Message> getFilterMessages(Long idClient, String status, LocalDateTime start, LocalDateTime end);
 
 }

@@ -15,28 +15,14 @@ public class MessageController {
     @Autowired
     private MessageService messageService;
 
-    @GetMapping("/client/{clientId}")
-    public List<Message> getMessageById(@PathVariable Long clientId) {
-        return messageService.getMessagesByClientId(clientId);
-    }
-
-    @GetMapping("/client/{clientId}/status/{status}")
-    public List<Message> getMessagesByClientIdAndStatus(@PathVariable Long clientId, @PathVariable String status) {
-        return messageService.getMessagesByClientIdAndStatus(clientId, status);
-    }
-
-    @GetMapping("/all")
-    public List<Message> getAllMessages() {
-        return messageService.getAllMessages();
-    }
-
     @GetMapping("/filter")
     public List<Message> filterMessages(
             @RequestParam(required = false) String status,
             @RequestParam(required = false) LocalDateTime start,
-            @RequestParam(required = false) LocalDateTime end) {
+            @RequestParam(required = false) LocalDateTime end,
+            @RequestParam(required = false) Long idClient) {
 
-        return messageService.getFilterMessages(status, start, end);
+        return messageService.getFilterMessages(idClient, status, start, end);
     }
 }
 
