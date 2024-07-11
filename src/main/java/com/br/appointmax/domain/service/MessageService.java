@@ -15,12 +15,6 @@ public interface MessageService {
 
     List<Message> getAllMessages();
 
-    List<Message> getMessagesByStatus(String status);
-
-    List<Message> getMessagesByDateRange(LocalDateTime start, LocalDateTime end);
-
-    List<Message> getMessageByStatusAndDateRange(String status, LocalDateTime start, LocalDateTime end);
-
-    List<Message> getFilteredMessages(String status, LocalDateTime start, LocalDateTime end);
+    List<Message> getFilterMessages(String status, LocalDateTime start, LocalDateTime end);
 
 }

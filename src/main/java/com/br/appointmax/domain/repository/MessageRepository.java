@@ -11,9 +11,7 @@ import java.util.List;
 public interface MessageRepository extends JpaRepository<Message, Long> {
 
     List<Message> findByClientId(Long clientId);
-    List<Message> findByStatus(String status);
     List<Message> findByClientIdAndStatus(Long clientId, String status);
-    List<Message> findByDataMessageBetween(LocalDateTime start, LocalDateTime end);
-    List<Message> findByStatusAndDataMessageBetween(String status, LocalDateTime start, LocalDateTime end);
+    List<Message> getFilterMessages(String status, LocalDateTime start, LocalDateTime end);
 
 }

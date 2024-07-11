@@ -35,7 +35,8 @@ public class MessageController {
             @RequestParam(required = false) String status,
             @RequestParam(required = false) LocalDateTime start,
             @RequestParam(required = false) LocalDateTime end) {
-        return messageService.getFilteredMessages(status, start, end);
+
+        return messageService.getFilterMessages(status, start, end);
     }
 }
 

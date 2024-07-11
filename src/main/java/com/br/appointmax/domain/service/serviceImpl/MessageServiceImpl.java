@@ -60,30 +60,8 @@ public class MessageServiceImpl implements MessageService {
         return messageRepository.findAll();
     }
 
-    public List<Message> getMessagesByStatus(String status) {
-        return messageRepository.findByStatus(status);
-    }
-
-    public List<Message> getMessagesByDateRange(LocalDateTime start, LocalDateTime end) {
-        return messageRepository.findByDataMessageBetween(start, end);
-    }
-
-    public List<Message> getMessageByStatusAndDateRange(String status, LocalDateTime start, LocalDateTime end) {
-        return messageRepository.findByStatusAndDataMessageBetween(status, start, end);
-    }
-
-    public List<Message> getFilteredMessages(String status, LocalDateTime start, LocalDateTime end){
-        if (StringUtils.hasLength(status) && start != null && end != null) {
-            return getMessageByStatusAndDateRange(status, start, end);
-        } else if (StringUtils.hasLength(status)) {
-            return getMessagesByStatus(status);
-        } else if (start != null && end != null) {
-            return getMessagesByDateRange(start, end);
-        } else if (!StringUtils.hasLength(status) && start == null && end == null) {
-            return getAllMessages();
-        } else {
-            throw new IllegalArgumentException("Status and start and end are both null");
-        }
+    public List<Message> getFilterMessages(String status, LocalDateTime start, LocalDateTime end){
+        return messageRepository.getFilterMessages(status, start, end);
     }
 
 }
