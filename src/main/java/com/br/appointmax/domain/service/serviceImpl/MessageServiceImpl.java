@@ -6,15 +6,15 @@ import com.br.appointmax.domain.repository.MessageRepository;
 import com.br.appointmax.domain.service.ClientService;
 import com.br.appointmax.domain.service.MessagePersonalizationService;
 import com.br.appointmax.domain.service.MessageService;
-import com.br.appointmax.infrastucture.spec.MessageFilterStatusDateStartEnd;
+import com.br.appointmax.infrastucture.spec.MessageSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 import static com.br.appointmax.domain.Enum.StatusEnum.STATUS_PENDING;
+import static com.br.appointmax.infrastucture.spec.MessageSpecification.filterStatusDateStartEnd;
 
 @Service
 public class MessageServiceImpl implements MessageService {
@@ -49,9 +49,12 @@ public class MessageServiceImpl implements MessageService {
         return message;
     }
 
-
-    public List<Message> getFilterMessages(Long idClient, String status, LocalDateTime start, LocalDateTime end){
-        return messageRepository.findAll(new MessageFilterStatusDateStartEnd(idClient, status, start, end));
+    public List<Message> getFilterMessages(Long idClient,
+                                           String status,
+                                           LocalDateTime start,
+                                           LocalDateTime end) {
+        return messageRepository.
+                findAll(filterStatusDateStartEnd(idClient, status, start, end));
     }
 
 }

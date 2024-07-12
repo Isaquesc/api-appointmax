@@ -17,10 +17,10 @@ public class MessageController {
 
     @GetMapping("/filter")
     public List<Message> filterMessages(
-            @RequestParam(required = false) String status,
-            @RequestParam(required = false) LocalDateTime start,
-            @RequestParam(required = false) LocalDateTime end,
-            @RequestParam(required = false) Long idClient) {
+        @RequestParam(required = false) String status,
+        @RequestParam(required = false) LocalDateTime start,
+        @RequestParam(required = false) LocalDateTime end,
+        @RequestParam(required = false) Long idClient) {
 
         return messageService.getFilterMessages(idClient, status, start, end);
     }
