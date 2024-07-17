@@ -18,7 +18,6 @@ public class WhatsAppController {
 
     @PostMapping("/send")
     public ResponseEntity<?> sendMessage(@RequestBody SendMessageRequestDTO request) {
-
         var clientIds = request.clientIds();
         var messageContent = request.messageContent();
 

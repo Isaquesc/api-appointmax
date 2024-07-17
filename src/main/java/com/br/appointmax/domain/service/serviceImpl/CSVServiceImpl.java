@@ -1,6 +1,6 @@
 package com.br.appointmax.domain.service.serviceImpl;
 
-import com.br.appointmax.domain.constants.CSVServiceConstants;
+import com.br.appointmax.domain.constants.StringConstants;
 import com.br.appointmax.domain.model.Client;
 import com.br.appointmax.domain.repository.ClientRepository;
 import com.br.appointmax.domain.service.CSVService;
@@ -27,6 +27,7 @@ public class CSVServiceImpl implements CSVService {
     @Autowired
     private ClientRepository clientRepository;
 
+    //TODO: [Isaque Silva] - alterar o modo no qual recebemos o arquivo, para string [atualmente recebemos em MultipartFile] assim transportamos esses dados de uma maneira mais segura.
     @Override
     public String sendFile(MultipartFile file) {
         try (CSVReader csvReader = new CSVReader(new InputStreamReader(file.getInputStream()))) {
@@ -37,22 +38,22 @@ public class CSVServiceImpl implements CSVService {
                 if (isLineValid(line)) {
                     processLine(line, clients);
                 } else {
-                    logger.warn(CSVServiceConstants.INVALID_DATA_WARNING, (Object) line);
+                    logger.warn(StringConstants.INVALID_DATA_WARNING, (Object) line);
                 }
             }
 
             clientRepository.saveAll(clients);
-            logger.info(CSVServiceConstants.CSV_UPLOAD_SUCCESS);
+            logger.info(StringConstants.CSV_UPLOAD_SUCCESS);
 
-            return CSVServiceConstants.CSV_UPLOAD_SUCCESS;
+            return StringConstants.CSV_UPLOAD_SUCCESS;
         } catch (IOException e) {
-            logger.error(CSVServiceConstants.CSV_UPLOAD_IO_ERROR, e);
+            logger.error(StringConstants.CSV_UPLOAD_IO_ERROR, e);
 
-            return CSVServiceConstants.CSV_UPLOAD_IO_ERROR;
+            return StringConstants.CSV_UPLOAD_IO_ERROR;
         } catch (CsvValidationException e) {
-            logger.error(CSVServiceConstants.CSV_UPLOAD_VALIDATION_ERROR, e);
+            logger.error(StringConstants.CSV_UPLOAD_VALIDATION_ERROR, e);
 
-            return CSVServiceConstants.CSV_UPLOAD_VALIDATION_ERROR;
+            return StringConstants.CSV_UPLOAD_VALIDATION_ERROR;
         }
     }
 
@@ -61,19 +62,19 @@ public class CSVServiceImpl implements CSVService {
     }
 
     private boolean isValidEmail(String email) {
-        return CSVServiceConstants.EMAIL_PATTERN.matcher(email).matches();
+        return StringConstants.EMAIL_PATTERN.matcher(email).matches();
     }
 
     private boolean isValidPhone(String phone) {
-        return CSVServiceConstants.PHONE_PATTERN.matcher(phone).matches();
+        return StringConstants.PHONE_PATTERN.matcher(phone).matches();
     }
 
     private void processLine(String[] data, List<Client> clients) {
+        //TODO ajustar
         Client client = new Client();
         client.setName(data[0]);
         client.setPhone(data[1]);
         client.setEmail(data[2]);
         clients.add(client);
-        //TODO ajustar
     }
 }

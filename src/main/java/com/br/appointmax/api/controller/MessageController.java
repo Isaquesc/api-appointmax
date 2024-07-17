@@ -15,14 +15,20 @@ public class MessageController {
     @Autowired
     private MessageService messageService;
 
+    @GetMapping("/filter/{id}")
+    public List<Message> filterMessagesClientId(
+            @PathVariable(name = "id", required = false) Long selectedUserId,
+            @RequestParam(required = false) String status,
+            @RequestParam(required = false) LocalDateTime start,
+            @RequestParam(required = false) LocalDateTime end) {
+        return messageService.getFilterMessages(selectedUserId, status, start, end);
+    }
+
     @GetMapping("/filter")
     public List<Message> filterMessages(
         @RequestParam(required = false) String status,
         @RequestParam(required = false) LocalDateTime start,
-        @RequestParam(required = false) LocalDateTime end,
-        @RequestParam(required = false) Long idClient) {
-
-        return messageService.getFilterMessages(idClient, status, start, end);
+        @RequestParam(required = false) LocalDateTime end){
+        return messageService.getFilterMessages(null, status, start, end);
     }
 }
-

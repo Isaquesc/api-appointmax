@@ -9,10 +9,10 @@ public class MessagePersonalizationServiceImpl implements MessagePersonalization
 
     @Override
     public String personalizeMessage(String messageContent, Client client) {
-        return messageContent.replace("{nome}", primeiraLetraMaiuscula(client.getName()));
+        return messageContent.replace("{nome}", firstLetter(client.getName()));
     }
 
-    private String primeiraLetraMaiuscula(String str) {
+    private String firstLetter(String str) {
         if (str == null || str.isEmpty()) {
             return str;
         }

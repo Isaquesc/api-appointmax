@@ -6,14 +6,13 @@ import com.br.appointmax.domain.repository.MessageRepository;
 import com.br.appointmax.domain.service.ClientService;
 import com.br.appointmax.domain.service.MessagePersonalizationService;
 import com.br.appointmax.domain.service.MessageService;
-import com.br.appointmax.infrastucture.spec.MessageSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static com.br.appointmax.domain.Enum.StatusEnum.STATUS_PENDING;
+import static com.br.appointmax.domain.model.StatusEnum.STATUS_PENDING;
 import static com.br.appointmax.infrastucture.spec.MessageSpecification.filterStatusDateStartEnd;
 
 @Service

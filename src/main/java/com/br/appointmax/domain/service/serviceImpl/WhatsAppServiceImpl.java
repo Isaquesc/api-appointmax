@@ -12,8 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import static com.br.appointmax.domain.Enum.StatusEnum.STATUS_FAILED;
-import static com.br.appointmax.domain.Enum.StatusEnum.STATUS_SENT;
+import static com.br.appointmax.domain.model.StatusEnum.STATUS_FAILED;
+import static com.br.appointmax.domain.model.StatusEnum.STATUS_SENT;
 
 @Service
 public class WhatsAppServiceImpl implements WhatsAppService {

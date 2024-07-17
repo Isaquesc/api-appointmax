@@ -1,4 +1,4 @@
-package com.br.appointmax.domain.Enum;
+package com.br.appointmax.domain.model;
 
 public enum StatusEnum {
 
