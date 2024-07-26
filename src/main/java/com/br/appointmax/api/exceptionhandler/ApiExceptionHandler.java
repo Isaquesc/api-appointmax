@@ -2,6 +2,7 @@ package com.br.appointmax.api.exceptionhandler;
 
 import com.br.appointmax.domain.constants.StringConstants;
 import com.br.appointmax.domain.exception.ClientNotFoundException;
+import com.br.appointmax.domain.exception.CsvUploudException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.fasterxml.jackson.databind.exc.PropertyBindingException;
@@ -31,10 +32,21 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(ClientNotFoundException.class)
     public ResponseEntity<Object> handlerClientNotFoundException(ClientNotFoundException ex, WebRequest request) {
 
+        var status = HttpStatus.BAD_GATEWAY;
+        var problemType = ProblemType.RECURSO_NAO_ENCONTRADO;
+        var detail = ex.getMessage();
+        var problem = getProblemBuilder(status, problemType, detail).build();
+
+        return handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
+    }
+
+    @ExceptionHandler(CsvUploudException.class)
+    public ResponseEntity<Object> handlerCsvUploadException(CsvUploudException ex, WebRequest request) {
+
         HttpStatus status = HttpStatus.BAD_GATEWAY;
-        ProblemType problemType = ProblemType.RECURSO_NAO_ENCONTRADO;
-        String detail = ex.getMessage();
-        Problem problem = getProblemBuilder(status, problemType, detail).build();
+        var problemType = ProblemType.CSV_ERRO_UPLOAD;
+        var detail = ex.getMessage();
+        var problem = getProblemBuilder(status, problemType, detail).build();
 
         return handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
     }
@@ -77,7 +89,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
-        Throwable rootCause = ExceptionUtils.getRootCause(ex);
+        var rootCause = ExceptionUtils.getRootCause(ex);
 
         if (rootCause instanceof InvalidFormatException) {
             return handleInvalidFormatException((InvalidFormatException) rootCause, headers, status, request);

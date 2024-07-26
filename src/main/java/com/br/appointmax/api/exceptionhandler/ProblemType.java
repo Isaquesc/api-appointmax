@@ -9,7 +9,8 @@ public enum ProblemType {
     ERRO_NEGOCIO("/erro-negocio", "Violação de regra de negócio"),
     MENSAGEM_INCOMPREENSIVEL("/mensagem-incompreensivel", "Mensagem incompreensível"),
     PARAMETRO_INVALIDO("/parametro-invalido", "Parametro invalido"),
-    ERRO_DE_SISTEMA("/erro-sistema","Erro de sistema" );
+    ERRO_DE_SISTEMA("/erro-sistema","Erro de sistema" ),
+    CSV_ERRO_UPLOAD("/erro-uploud-csv", "Erro no upload do CSV");
 
     private String uri;
     private String title;
